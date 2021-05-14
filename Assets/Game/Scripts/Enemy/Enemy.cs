@@ -433,7 +433,7 @@ public class Enemy : MonoBehaviour
     public void LeaveTheGrab()
     {
         _traveling = true;
-        //Debug.Log("ага, попался пидор");
+        
         _inGrab = false;
         _grabAlarm = true;
         //fieldOfView.SetActive(true);
@@ -512,7 +512,7 @@ public class Enemy : MonoBehaviour
         _isChasing = false;
         _isAttacking = false;
         _isSearching = false;
-        Debug.Log("патрулирую");
+        //Debug.Log("патрулирую");
     }
     public void SetStateToChasing()
     {

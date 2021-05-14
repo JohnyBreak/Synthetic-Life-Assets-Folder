@@ -64,7 +64,7 @@ public class Alarm : MonoBehaviour
     }
     public void PlayAlertSound()
     {
-        //Debug.Log("ПРОИГРЫВАЕМ МУЗЫКУ НАХУЙ БЛЯТЬ!!!!");
+        
         _alertSound.Play();
     }
     
@@ -76,13 +76,11 @@ public class Alarm : MonoBehaviour
             _soundCheck = true;
             PlayAlertSound();
         }
-        //PlayAlertSound();
         isAlertTimer = true;
         isSearchTimer = false;
         
         _alertLabel.SetActive(true);
         _evasionLabel.SetActive(false);
-        //Debug.Log("ПОДНЯЛИ ТРЕВОГУ");
         _state = States.Alert;
         _timer = 0f;
     }
@@ -91,7 +89,7 @@ public class Alarm : MonoBehaviour
         _soundCheck = false;
         _alertLabel.SetActive(false);
         _evasionLabel.SetActive(true);
-        //Debug.Log("ИЩЕМ ПРОТИВНИКА");
+        
         _state = States.Search;
         isAlertTimer = false;
         isSearchTimer = true;
@@ -101,7 +99,7 @@ public class Alarm : MonoBehaviour
     public  void SetNormal()
     {
         _evasionLabel.SetActive(false);
-        //Debug.Log("всё спокойно");
+        
         _state = States.Normal;
         isSearchTimer = false;
         isAlertTimer = false;
