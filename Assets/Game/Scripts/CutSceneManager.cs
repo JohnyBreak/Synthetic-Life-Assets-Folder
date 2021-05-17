@@ -9,14 +9,26 @@ public class CutSceneManager : MonoBehaviour
     public bool inCutScene;
     private bool _isPlayingCutScene = false;
     [SerializeField] private GameObject _weapon;
+    private WeaponSwitch _weaponHolder;
     [SerializeField] private GameObject _hud;
     [SerializeField] private GameObject _soundGO;
     [SerializeField] private GameObject _text;
     private AudioSource _cutSceneSound;
     [SerializeField] private int index;
-    // Start is called before the first frame update
+    [SerializeField] private GameObject _player;
+    [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private RuntimeAnimatorController _playerRunTimeAnimCtrl;
+    bool fix = false;
+    void OnEnable()
+    {
+        
+           _playerRunTimeAnimCtrl = _playerAnimator.runtimeAnimatorController;
+        _playerAnimator.runtimeAnimatorController = null;
+    }
     void Start()
     {
+        _weaponHolder = _weapon.GetComponent<WeaponSwitch>();
+        //_playerAnimator = _player.GetComponent<Animator>();
         _cutSceneSound = _soundGO.GetComponent<AudioSource>();
     }
     public void StartCutScene()
@@ -31,9 +43,14 @@ public class CutSceneManager : MonoBehaviour
 
     public void StopCutScene()
     {
+        
         _hud.SetActive(true);
         _weapon.SetActive(true);
+        _playableDirector[index].Stop();
+        _isPlayingCutScene = false;
         inCutScene = false;
+        ResetAnimator();
+        //_playerAnimator.enabled = true;
         /*_playableDirector[index].time = _playableDirector[index].playableAsset.duration; // set the time to the last frame
         _playableDirector[index].Evaluate(); // evaluates the timeline
         _cutSceneSound.SetActive(false);
@@ -42,14 +59,20 @@ public class CutSceneManager : MonoBehaviour
         Debug.Log("booooba");
         _isPlayingCutScene = false;*/
     }
-
     public void ChangeCutSceneState()
     {
+        
         inCutScene = !inCutScene;
     }
-
+    void ResetAnimator()
+    {
+        _playerAnimator.runtimeAnimatorController = _playerRunTimeAnimCtrl;
+        Debug.Log("ghbdtn");
+        _weaponHolder.anim = _playerAnimator;
+    }
     public void SkipCutScene()
     {
+        
         _hud.SetActive(true);
         _weapon.SetActive(true);
         ChangeCutSceneState();
@@ -60,6 +83,7 @@ public class CutSceneManager : MonoBehaviour
         
         //Debug.Log("booooba");
         _isPlayingCutScene = false;
+        ResetAnimator();
     }
 
     public void PlayElevatorCutScene()
@@ -84,6 +108,12 @@ public class CutSceneManager : MonoBehaviour
 
     void Update()
     {
+       /* if (_playableDirector[index].state != PlayState.Playing && !fix)
+        {
+            fix = true;
+            _playerAnimator.runtimeAnimatorController = _playerRunTimeAnimCtrl;
+            Debug.Log("ghbdtn");
+        }*/
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
@@ -92,9 +122,6 @@ public class CutSceneManager : MonoBehaviour
                 SkipCutScene();
             }
         }
-
-
-
         /*if (Input.GetKeyDown(KeyCode.P))
         {
            
@@ -107,7 +134,5 @@ public class CutSceneManager : MonoBehaviour
                 SkipCutScene();
             }
         }*/
-
-
     }
 }

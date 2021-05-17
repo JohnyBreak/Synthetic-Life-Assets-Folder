@@ -61,10 +61,12 @@ public class TakeDown : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 NeutralizeEnemy();
+                stealthZone.PlayGrabNeutralizeSound();
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 KillEnemy();
+                stealthZone.PlayGrabDeathSound();
             }
         }
 
@@ -91,7 +93,7 @@ public class TakeDown : MonoBehaviour
         enemy = _enemyObject;
         enemyAnim = _enemyObject.GetComponent<Animator>();
         stealthZone = _enemyObject.GetComponentInChildren<StealthZone>();
-        //Debug.Log(_enemyObject.name);
+        Debug.Log(_enemyObject.name);
     }
 
     public void UnSetEnemy()
@@ -141,6 +143,7 @@ public class TakeDown : MonoBehaviour
     {
         //4.33f
         //Debug.Log("CoupleTogether");
+        stealthZone.PlayGrabSound();
         controller.radius = 2.2f;
         controller.center = new Vector3(controller.center.x, 4.23f /*4.65f*/, controller.center.z + 1f);
         enemy.GetComponent<Enemy>().SetInGrab(true);

@@ -5,17 +5,20 @@ using UnityEngine;
 public class StealthZone : MonoBehaviour
 {
     private bool _inZone;
-    [SerializeField]
-    private TakeDown takeDown;
+    [SerializeField] private TakeDown takeDown;
     private GameObject enemyObject;
     private int _layerMask = 8;
     private GameObject grabPoint;
+    [SerializeField] AudioSource _audioSourse;
+    [SerializeField] AudioClip _deathSound;
+    [SerializeField] AudioClip _neutralize;
+    [SerializeField] AudioClip _grabSound;
     void Start()
     {
 
         grabPoint = takeDown._grabPoint;
 
-    enemyObject = transform.parent.gameObject;
+    enemyObject = this.transform.parent.gameObject;
     }
     void Update()
     {
@@ -31,7 +34,18 @@ public class StealthZone : MonoBehaviour
         }
     }
 
-
+    public void PlayGrabSound()
+    {
+        _audioSourse.PlayOneShot(_grabSound);
+    }
+    public void PlayGrabDeathSound()
+    {
+        _audioSourse.PlayOneShot(_deathSound);
+    }
+    public void PlayGrabNeutralizeSound()
+    {
+        _audioSourse.PlayOneShot(_neutralize);
+    }
     public void RotateForTakeDown(Transform playerTransform)
     {
         Debug.Log("try to rotate enemy");

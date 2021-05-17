@@ -10,6 +10,9 @@ public class Collectables : MonoBehaviour
     [SerializeField] private int _typeOfCollectables;
     [SerializeField] private Inventory inventory;
     [SerializeField] private Animator anim;
+    //private AudioSource _audioSourse;
+    //[SerializeField] private AudioClip _sound;
+    [SerializeField] private PickUpSound _pickUpSound;
     private GameObject mainWeapon;
     private GameObject secondaryWeapon;
     private GameObject weaponHolder;
@@ -18,7 +21,7 @@ public class Collectables : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //_audioSourse = transform.GetComponent<AudioSource>();
         weaponHolder = GameObject.Find("weaponHolder");
         //weaponHolder.gameObject.GetComponent<WeaponSwitch>().secondaryWeapon;
         mainWeapon = GameObject.Find("MainWeapon");
@@ -33,10 +36,10 @@ public class Collectables : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
-
         if (collider.gameObject.tag == "Player")
         {
-
+            _pickUpSound.PlayPickUpSound();
+           // _audioSourse.PlayOneShot(_sound);
             switch (_typeOfCollectables)
             {
                 case 0: SendBullets();
@@ -44,7 +47,6 @@ public class Collectables : MonoBehaviour
                 case 1: SendMedKit();
                     break;
             }
-            
         }
     }
     public void OnTriggerExit(Collider collider)
@@ -59,7 +61,6 @@ public class Collectables : MonoBehaviour
 
     void SendMedKit()
     {
-
         if (inventory.GetCountOfMedKits() < inventory.GetMaxOfMedKits())
         {
             inventory.IncreaseMedKits();
@@ -81,7 +82,7 @@ public class Collectables : MonoBehaviour
 
             if (mainWeapon.GetComponentInChildren<Weapon>().bulletsLeft < mainWeapon.GetComponentInChildren<Weapon>().GetMaxBullets())
             {
-                mainWeapon.GetComponentInChildren<Weapon>().IncreaseBullets(60);
+                mainWeapon.GetComponentInChildren<Weapon>().IncreaseBullets(_famasBullets);
                 // Debug.Log("в основном оружии осталось");
                 // Debug.Log(mainWeapon.GetComponentInChildren<Weapon>().bulletsLeft);
                 Destroy(gameObject);
@@ -99,7 +100,7 @@ public class Collectables : MonoBehaviour
         {
             if (mainWeapon.GetComponentInChildren<Weapon>().bulletsLeft < mainWeapon.GetComponentInChildren<Weapon>().GetMaxBullets())
             {
-                secondaryWeapon.GetComponentInChildren<Weapon>().IncreaseBullets(20);
+                secondaryWeapon.GetComponentInChildren<Weapon>().IncreaseBullets(_pistolBullets);
                 // Debug.Log("в основном оружии осталось");
                 // Debug.Log(mainWeapon.GetComponentInChildren<Weapon>().bulletsLeft);
                 Destroy(gameObject);
