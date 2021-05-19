@@ -80,7 +80,11 @@ public class playerController : MonoBehaviour
         //cover = GetComponent<Cover>();
         controller = GetComponent<CharacterController>();
         layerMask = ~layerMask;
-        LoadPlayerInStart();
+
+
+       // LoadPlayerInStart();
+
+
         /*if (Instance != null)
         {
             Destroy(this.gameObject);

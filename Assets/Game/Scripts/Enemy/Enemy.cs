@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private CharacterController controller;
     private EnemyAttack _enemyAttack;
-    
+    [SerializeField] private GameObject _weapon;
     public Enemy(int hp)
     {
         _health = hp;
@@ -488,6 +488,7 @@ public class Enemy : MonoBehaviour
     public void SetStateToAttacking()
     {
         //
+        
         _alarm.SetAlert();
         animator.SetFloat("SpeedPercent", 0f);
         _traveling = false;
@@ -496,7 +497,9 @@ public class Enemy : MonoBehaviour
         _isPatroling = false; 
         _isChasing = false;
         _isSearching = false;
-       // Debug.Log("атакую");
+        // Debug.Log("атакую");
+        _weapon.transform.localRotation = Quaternion.Euler(-164.454f, 72.885f, -41.478f);
+        _weapon.transform.localPosition = new Vector3(-0.0005f, 0.0007f, -0.0001f);
     }
     public void SetStateToPatroling()
     {
@@ -513,13 +516,15 @@ public class Enemy : MonoBehaviour
         _isAttacking = false;
         _isSearching = false;
         //Debug.Log("патрулирую");
+        _weapon.transform.localRotation = Quaternion.Euler(-212.146f, 102.264f, -89.47f);
+        _weapon.transform.localPosition = new Vector3(-0.0042f, 0.003f, 0f);
     }
     public void SetStateToChasing()
     {
         if (!_isNeutralized)
         {
             //
-            _alarm.SetAlert();
+             _alarm.SetAlert();
             _oldPatrolIndex = _currentPatrolIndex;
             //agent.SetDestination(transform.position);
             agent.speed = 3f;
@@ -530,6 +535,8 @@ public class Enemy : MonoBehaviour
             _isAttacking = false;
             _isSearching = false;
             //Debug.Log("ищу");
+            _weapon.transform.localRotation = Quaternion.Euler(-212.146f, 102.264f, -89.47f);
+            _weapon.transform.localPosition = new Vector3(-0.0042f, 0.003f, 0f);
         }
     }
 
@@ -544,11 +551,12 @@ public class Enemy : MonoBehaviour
         _isAttacking = false;
         agent.speed = 3f;
         animator.SetFloat("SpeedPercent", 0.9f);
+        _weapon.transform.localRotation = Quaternion.Euler(-212.146f, 102.264f, -89.47f);
+        _weapon.transform.localPosition = new Vector3(-0.0042f, 0.003f, 0f);
     }
 
     public void SetStateToSearching()
     {
-        
         agent.SetDestination(lastPlayerPosition);
         _traveling = true;
         animator.SetFloat("SpeedPercent", 0.9f);
@@ -558,6 +566,8 @@ public class Enemy : MonoBehaviour
         _isPatroling = false;
         _isAttacking = false;
         //Debug.Log("иду на последнюю точку");
+        _weapon.transform.localRotation = Quaternion.Euler(-212.146f, 102.264f, -89.47f);
+        _weapon.transform.localPosition = new Vector3(-0.0042f, 0.003f, 0f);
     }
 
     void MelleeAttackPlayer()
