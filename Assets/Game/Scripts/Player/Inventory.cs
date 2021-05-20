@@ -20,7 +20,11 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            UseMedKit();
+            if (countOfMedKits > 0)
+            {
+                UseMedKit();
+            }
+            
         }
 
     }

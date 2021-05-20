@@ -22,7 +22,7 @@ public class CutSceneManager : MonoBehaviour
     void OnEnable()
     {
         
-           _playerRunTimeAnimCtrl = _playerAnimator.runtimeAnimatorController;
+        _playerRunTimeAnimCtrl = _playerAnimator.runtimeAnimatorController;
         _playerAnimator.runtimeAnimatorController = null;
     }
     void Start()
@@ -67,7 +67,7 @@ public class CutSceneManager : MonoBehaviour
     void ResetAnimator()
     {
         _playerAnimator.runtimeAnimatorController = _playerRunTimeAnimCtrl;
-        Debug.Log("ghbdtn");
+        //Debug.Log("ghbdtn");
         _weaponHolder.anim = _playerAnimator;
     }
     public void SkipCutScene()
@@ -83,7 +83,7 @@ public class CutSceneManager : MonoBehaviour
         
         //Debug.Log("booooba");
         _isPlayingCutScene = false;
-        ResetAnimator();
+        //ResetAnimator();
     }
 
     public void PlayElevatorCutScene()
@@ -91,7 +91,11 @@ public class CutSceneManager : MonoBehaviour
         index = 1;
         StartCutScene();
     }
-
+    public void PlayJuliaCutScene()
+    {
+        index = 0;
+        StartCutScene();
+    }
 
     public void PauseCutScene()
     {

@@ -15,10 +15,12 @@ public class CamDetection : MonoBehaviour
     private int _layerMask = 8;
     public GameObject player = null;
     private CamRotation cameraRotation;
+    private CameraBreak _cameraBreak;
     [SerializeField] private Alarm _alarm;
     [SerializeField] private AlarmTrigger _alarmTrigger;
     void Start()
     {
+        _cameraBreak = gameObject.GetComponentInParent<CameraBreak>();
         cameraRotation = gameObject.GetComponentInParent<CamRotation>();
         //lens.GetComponentInParent<Light>().color = Color.green;
         lens = transform.parent.GetComponent<Transform>();
@@ -40,8 +42,10 @@ public class CamDetection : MonoBehaviour
     void OnTriggerStay(Collider coll)
     {
         
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.GetComponent<playerController>() != null)
         {
+            if (!_cameraBreak.isBroken)
+            {
             RaycastHit hit0;
             RaycastHit hit3;
             //Debug.DrawRay(lens.transform.position + lens.transform.forward * .3f, coll.transform.position + coll.transform.up * 1f - lens.transform.position, Color.blue, _distanse);
@@ -97,6 +101,7 @@ public class CamDetection : MonoBehaviour
 
 
 
+        }
         }
     }
     

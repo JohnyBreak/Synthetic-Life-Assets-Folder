@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))// получаю коллайдер, в который попал
             {
                 hit.collider.GetComponent<Target>().takeGunDamage(damage);//если это враг, посылаю ему урон
-            }else if (hit.collider.CompareTag("SurveillanceCamera"))// получаю коллайдер, в который попал
+            }else if (hit.collider.tag == "SurveillanceCamera")// получаю коллайдер, в который попал
             {
                 Debug.Log("SurveillanceCamera");
                 hit.collider.GetComponentInParent<CameraBreak>().BreakCamera();//если это камера, ломаю
