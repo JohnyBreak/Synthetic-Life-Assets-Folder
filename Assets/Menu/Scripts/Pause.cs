@@ -18,11 +18,12 @@ public class Pause : MonoBehaviour
     [SerializeField] private WaterSound _waterSound;
     [SerializeField] private CutSceneManager _cutScene;
     [SerializeField] private GameObject _image;
-    
-    bool check = false;
+    [SerializeField] private GameObject _cutSceneTimeLine;
+    bool check = false, _startCutScene;
 
     void Start()
     {
+        _startCutScene = true;
         _saveloadButtons.SetActive(false);
         _mainCam = _mainCamera.GetComponent<ThirdPersonCamera>();
         _playerCtrl = _player.GetComponent<playerController>();
@@ -110,6 +111,11 @@ public class Pause : MonoBehaviour
         _isPaused = false;
         //_saveloadButtons.SetActive(true);
         _gameOverScreen.SetActive(false);
+        if (_startCutScene)
+        {
+            _startCutScene = false;
+            _cutSceneTimeLine.SetActive(true);
+        }
     }
    public void SavePlayer()
     {

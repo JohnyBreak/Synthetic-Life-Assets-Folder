@@ -110,7 +110,7 @@ public class CutSceneManager : MonoBehaviour
         _cutSceneSound.UnPause();
     }
 
-    void Update()
+  /*  void Update()
     {
        /* if (_playableDirector[index].state != PlayState.Playing && !fix)
         {
@@ -118,14 +118,14 @@ public class CutSceneManager : MonoBehaviour
             _playerAnimator.runtimeAnimatorController = _playerRunTimeAnimCtrl;
             Debug.Log("ghbdtn");
         }*/
-        if (Input.GetKeyDown(KeyCode.Space))
+       /* if (Input.GetKeyDown(KeyCode.Space))
         {
 
             if (_isPlayingCutScene)
             {
                 SkipCutScene();
             }
-        }
+        }*/
         /*if (Input.GetKeyDown(KeyCode.P))
         {
            
@@ -138,5 +138,5 @@ public class CutSceneManager : MonoBehaviour
                 SkipCutScene();
             }
         }*/
-    }
+    //}
 }

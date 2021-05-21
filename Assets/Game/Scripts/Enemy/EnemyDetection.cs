@@ -25,7 +25,7 @@ public class EnemyDetection : MonoBehaviour
     void OnTriggerStay(Collider coll)
     {
 
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.GetComponent<playerController>() != null)
         {
             _player = coll.GetComponent<playerController>();
             

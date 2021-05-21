@@ -521,7 +521,7 @@ public class Enemy : MonoBehaviour
     }
     public void SetStateToChasing()
     {
-        if (!_isNeutralized)
+        if (!_isNeutralized && !_isDead)
         {
             //
              _alarm.SetAlert();
