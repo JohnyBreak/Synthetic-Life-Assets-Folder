@@ -18,6 +18,8 @@ public class CutSceneManager : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private RuntimeAnimatorController _playerRunTimeAnimCtrl;
+    [SerializeField]
+    private List<AudioSource> _cutSceneSoundArray;
     bool fix = false;
     void OnEnable()
     {
@@ -99,12 +101,26 @@ public class CutSceneManager : MonoBehaviour
 
     public void PauseCutScene()
     {
+        if (_cutSceneSoundArray != null)
+        {
+            foreach (AudioSource audio in _cutSceneSoundArray)
+            {
+                audio.Pause();
+            }
+        }
         _playableDirector[index].Pause();
         _cutSceneSound.Pause();
         _text.SetActive(false);
     }
     public void ResumeCutScene()
     {
+        if (_cutSceneSoundArray != null)
+        {
+            foreach (AudioSource audio in _cutSceneSoundArray)
+            {
+                audio.UnPause();
+            }
+        }
         _text.SetActive(true);
         _playableDirector[index].Resume();
         _cutSceneSound.UnPause();

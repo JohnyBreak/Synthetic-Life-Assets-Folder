@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class JuliaCutSceneTrigger : MonoBehaviour
 {
     private playerController _playerCtrl;
@@ -19,8 +19,12 @@ public class JuliaCutSceneTrigger : MonoBehaviour
             //other.GetComponent<Animator>().SetFloat("SpeedPercent", 0f);
             //_cutScene.PlayJuliaCutScene();
             //Destroy(this.gameObject);
-            Debug.Log("StartCutScene");
+            //Debug.Log("StartCutScene");
         }
         
+    }
+    public void EndGame()
+    {
+        SceneManager.LoadScene(1);
     }
 }

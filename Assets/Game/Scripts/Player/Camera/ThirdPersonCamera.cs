@@ -10,7 +10,7 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField]private Transform _helper;
     [SerializeField] private float dstFromTarget;
-    public Vector2 pitchMinMax = new Vector2(-40, 85);
+    [SerializeField] private Vector2 pitchMinMax = new Vector2(-40, 85);
     [SerializeField] private LayerMask obstacles;
     [SerializeField] private LayerMask noPlayer;
     [SerializeField] private LayerMask camOrigin;
@@ -18,9 +18,10 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField] private float _maxDistance;
     [SerializeField] private playerController playerCtrl;
     [SerializeField] private CutSceneManager _cutScene;
-    float distance;
-    float yaw;
-    float pitch;
+    [SerializeField] private CutSceneManager _juliaCutScene;
+    private float distance;
+    private float yaw;
+    private float pitch;
     
     private Vector3 _position
     {
@@ -38,7 +39,7 @@ public class ThirdPersonCamera : MonoBehaviour
     
     void LateUpdate()
     {
-        if (!_cutScene.inCutScene)
+        if (!_cutScene.inCutScene && !_juliaCutScene.inCutScene)
         {
             rotateCam();
             if (!playerCtrl.isAiming)

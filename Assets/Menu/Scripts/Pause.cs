@@ -17,8 +17,10 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject _gameOverScreen;
     [SerializeField] private WaterSound _waterSound;
     [SerializeField] private CutSceneManager _cutScene;
+    [SerializeField] private CutSceneManager _juliaCutScene;
     [SerializeField] private GameObject _image;
     [SerializeField] private GameObject _cutSceneTimeLine;
+    
     bool check = false, _startCutScene;
 
     void Start()
@@ -38,11 +40,23 @@ public class Pause : MonoBehaviour
             if (_cutScene.inCutScene && _isPaused)
             {
                 _cutScene.PauseCutScene();
+                
             } else if (_cutScene.inCutScene && !_isPaused)
             {
                 _cutScene.ResumeCutScene();
+                
             }
-            
+            if (_juliaCutScene.inCutScene && _isPaused)
+            {
+               
+                _juliaCutScene.PauseCutScene();
+            }
+            else if (_juliaCutScene.inCutScene && !_isPaused)
+            {
+               
+                _juliaCutScene.ResumeCutScene();
+            }
+
         }
         if (_isPaused)
         {
@@ -58,7 +72,7 @@ public class Pause : MonoBehaviour
             _mainCam.enabled = false;
             _playerCtrl.inGamePlay = false;
             _playerAttack.enabled = false;
-            if (!_cutScene.inCutScene)
+            if (!_cutScene.inCutScene && !_juliaCutScene.inCutScene)
             {
                 _hud.gameObject.SetActive(false);
             }
@@ -83,7 +97,7 @@ public class Pause : MonoBehaviour
             _playerAttack.enabled = true;
             _playerCtrl.inGamePlay = true;
             _panelPause.SetActive(false);
-            if (!_cutScene.inCutScene)
+            if (!_cutScene.inCutScene && !_juliaCutScene.inCutScene)
             {
                 _hud.gameObject.SetActive(true);
             }
@@ -110,7 +124,12 @@ public class Pause : MonoBehaviour
         isGOScreen = false;
         _isPaused = false;
         //_saveloadButtons.SetActive(true);
-        _gameOverScreen.SetActive(false);
+        if (_juliaCutScene.inCutScene)
+        {
+            _juliaCutScene.ResumeCutScene();
+        }
+
+    _gameOverScreen.SetActive(false);
         if (_startCutScene)
         {
             _startCutScene = false;
